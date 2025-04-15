@@ -1,333 +1,325 @@
 import React from 'react';
-import { 
-  Container, 
-  Typography, 
-  Box, 
-  Button, 
-  Grid, 
-  Paper,
+import { Link as RouterLink } from 'react-router-dom';
+import {
+  Box,
+  Button,
   Card,
   CardContent,
-  CardActions,
-  CardMedia
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+  Stack,
+  Paper,
+  Link,
+  Divider
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import ExploreIcon from '@mui/icons-material/Explore';
+import SchoolIcon from '@mui/icons-material/School';
 import ScienceIcon from '@mui/icons-material/Science';
-import DesignServicesIcon from '@mui/icons-material/DesignServices';
-import DataObjectIcon from '@mui/icons-material/DataObject';
-import StorageIcon from '@mui/icons-material/Storage';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
-const HomePage = () => {
-  const navigate = useNavigate();
+function HomePage() {
+  // Feature cards data
+  const features = [
+    {
+      icon: <ExploreIcon fontSize="large" color="primary" />,
+      title: 'Material Explorer',
+      description: 'Browse through our comprehensive database of materials with detailed properties and applications.'
+    },
+    {
+      icon: <SchoolIcon fontSize="large" color="primary" />,
+      title: 'Learning Resources',
+      description: 'Access tutorials, guides and educational content to enhance your materials science knowledge.'
+    },
+    {
+      icon: <ScienceIcon fontSize="large" color="primary" />,
+      title: 'Research Tools',
+      description: 'Utilize powerful tools designed for materials researchers and engineers to streamline your workflow.'
+    },
+    {
+      icon: <AutoGraphIcon fontSize="large" color="primary" />,
+      title: 'Data Analysis',
+      description: 'Analyze material properties, compare different materials, and visualize data with interactive charts.'
+    }
+  ];
+
+  // Highlighted materials data
+  const materials = [
+    {
+      title: 'Advanced Composites',
+      description: 'Explore high-performance composite materials for aerospace and automotive applications.',
+      image: 'https://source.unsplash.com/random/300×200/?composite'
+    },
+    {
+      title: 'Smart Polymers',
+      description: 'Discover responsive polymers that change properties based on environmental conditions.',
+      image: 'https://source.unsplash.com/random/300×200/?polymer'
+    },
+    {
+      title: 'Nanomaterials',
+      description: 'Learn about cutting-edge nanomaterials with unique properties at the nanoscale.',
+      image: 'https://source.unsplash.com/random/300×200/?nanomaterial'
+    }
+  ];
 
   return (
-    <Container maxWidth="xl">
+    <Box>
       {/* Hero Section */}
       <Box 
-        sx={{ 
-          textAlign: 'center', 
-          py: { xs: 4, md: 8 },
+        sx={{
+          bgcolor: 'primary.main',
+          color: 'primary.contrastText',
+          py: 8,
           mb: 6
         }}
       >
-        <Typography 
-          variant="h2" 
-          component="h1" 
-          gutterBottom
-          sx={{ 
-            fontWeight: 700,
-            mb: 3,
-            fontSize: { xs: '2rem', sm: '3rem', md: '3.5rem' }
-          }}
-        >
-          <Box component="span" sx={{ color: 'primary.main' }}>Easy</Box>Matter
-        </Typography>
-        
-        <Typography 
-          variant="h5" 
-          component="h2" 
-          gutterBottom
-          color="text.secondary"
-          sx={{ 
-            maxWidth: '800px', 
-            mx: 'auto', 
-            mb: 4,
-            px: 2
-          }}
-        >
-          Making MatterGen accessible to non-scientists for designing materials
-          with a chat-based UI
-        </Typography>
-        
-        <Box 
-          sx={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            gap: 2,
-            flexWrap: 'wrap'
-          }}
-        >
-          <Button 
-            variant="contained" 
-            size="large" 
-            onClick={() => navigate('/design')}
-            startIcon={<DesignServicesIcon />}
-          >
-            Start Designing
-          </Button>
-          
-          <Button 
-            variant="outlined" 
-            size="large" 
-            onClick={() => navigate('/materials')}
-            startIcon={<StorageIcon />}
-          >
-            Browse Materials
-          </Button>
-        </Box>
+        <Container maxWidth="lg">
+          <Grid container spacing={4} alignItems="center">
+            <Grid item xs={12} md={7}>
+              <Typography variant="h2" component="h1" gutterBottom>
+                Advancing Materials Science
+              </Typography>
+              <Typography variant="h5" paragraph>
+                Discover, analyze, and innovate with our comprehensive materials platform
+              </Typography>
+              <Typography variant="body1" paragraph sx={{ mb: 4 }}>
+                EasyMatter provides researchers, engineers, and students with powerful tools 
+                and resources to explore materials science and engineering concepts.
+              </Typography>
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                <Button 
+                  variant="contained" 
+                  size="large" 
+                  component={RouterLink} 
+                  to="/materials"
+                  sx={{ 
+                    bgcolor: 'background.paper', 
+                    color: 'primary.main',
+                    '&:hover': {
+                      bgcolor: 'background.default',
+                    }
+                  }}
+                >
+                  Explore Materials
+                </Button>
+                <Button 
+                  variant="outlined" 
+                  size="large" 
+                  component={RouterLink} 
+                  to="/about"
+                  sx={{ 
+                    color: 'background.paper',
+                    borderColor: 'background.paper',
+                    '&:hover': {
+                      borderColor: 'background.default',
+                      bgcolor: 'rgba(255,255,255,0.1)'
+                    }
+                  }}
+                >
+                  Learn More
+                </Button>
+              </Stack>
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <Paper 
+                elevation={6}
+                sx={{ 
+                  p: 3, 
+                  bgcolor: 'rgba(255,255,255,0.9)',
+                  borderRadius: 2,
+                  transition: 'transform 0.3s',
+                  '&:hover': {
+                    transform: 'scale(1.02)'
+                  }
+                }}
+              >
+                <Typography variant="h6" color="primary.main" gutterBottom>
+                  Get Started Today
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  Join thousands of researchers and engineers using EasyMatter to advance materials science innovation.
+                </Typography>
+                <Button 
+                  variant="contained" 
+                  fullWidth 
+                  component={RouterLink} 
+                  to="/register"
+                  sx={{ mt: 2 }}
+                >
+                  Sign Up for Free
+                </Button>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
       </Box>
 
       {/* Features Section */}
-      <Box sx={{ mb: 8 }}>
-        <Typography 
-          variant="h4" 
-          component="h2" 
-          gutterBottom
-          sx={{ 
-            mb: 4, 
-            textAlign: 'center',
-            fontWeight: 600
-          }}
-        >
-          Key Features
+      <Container maxWidth="lg" sx={{ mb: 8 }}>
+        <Typography variant="h4" component="h2" align="center" gutterBottom>
+          Powerful Tools for Materials Science
         </Typography>
-        
+        <Typography variant="body1" align="center" color="text.secondary" paragraph sx={{ mb: 6 }}>
+          Explore our suite of tools designed to help you work with materials more effectively
+        </Typography>
         <Grid container spacing={4}>
-          {/* Feature 1 */}
-          <Grid item xs={12} md={4}>
-            <Card 
-              className="material-card"
-              sx={{ height: '100%' }}
-            >
-              <CardMedia
+          {features.map((feature, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index}>
+              <Card 
                 sx={{ 
-                  height: 140, 
-                  bgcolor: 'primary.main', 
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-              >
-                <DesignServicesIcon sx={{ fontSize: 64, color: 'white' }} />
-              </CardMedia>
-              
-              <CardContent>
-                <Typography variant="h5" component="h3" gutterBottom>
-                  Intuitive Design Interface
-                </Typography>
-                <Typography variant="body1">
-                  Design new materials by describing your requirements in plain English. 
-                  Our AI-powered chat interface converts your specifications into MatterGen code.
-                </Typography>
-              </CardContent>
-              
-              <CardActions>
-                <Button size="small" onClick={() => navigate('/design')}>
-                  Start Designing
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-          
-          {/* Feature 2 */}
-          <Grid item xs={12} md={4}>
-            <Card 
-              className="material-card"
-              sx={{ height: '100%' }}
-            >
-              <CardMedia
-                sx={{ 
-                  height: 140, 
-                  bgcolor: 'secondary.main', 
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-              >
-                <ScienceIcon sx={{ fontSize: 64, color: 'white' }} />
-              </CardMedia>
-              
-              <CardContent>
-                <Typography variant="h5" component="h3" gutterBottom>
-                  Materials Database
-                </Typography>
-                <Typography variant="body1">
-                  Browse our curated database of materials with detailed properties, 
-                  costs, and availability information. Import your own datasets for analysis.
-                </Typography>
-              </CardContent>
-              
-              <CardActions>
-                <Button size="small" onClick={() => navigate('/materials')}>
-                  Explore Materials
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-          
-          {/* Feature 3 */}
-          <Grid item xs={12} md={4}>
-            <Card 
-              className="material-card"
-              sx={{ height: '100%' }}
-            >
-              <CardMedia
-                sx={{ 
-                  height: 140, 
-                  bgcolor: 'info.main', 
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-              >
-                <DataObjectIcon sx={{ fontSize: 64, color: 'white' }} />
-              </CardMedia>
-              
-              <CardContent>
-                <Typography variant="h5" component="h3" gutterBottom>
-                  Google Colab Integration
-                </Typography>
-                <Typography variant="body1">
-                  Seamlessly export your material designs to Google Colab notebooks 
-                  for advanced simulations and analysis using MatterGen's powerful capabilities.
-                </Typography>
-              </CardContent>
-              
-              <CardActions>
-                <Button size="small" onClick={() => navigate('/colab-code')}>
-                  Generate Colab Code
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        </Grid>
-      </Box>
-
-      {/* How It Works Section */}
-      <Box sx={{ mb: 8 }}>
-        <Typography 
-          variant="h4" 
-          component="h2" 
-          gutterBottom
-          sx={{ 
-            mb: 4, 
-            textAlign: 'center',
-            fontWeight: 600
-          }}
-        >
-          How It Works
-        </Typography>
-        
-        <Paper 
-          elevation={2} 
-          sx={{ 
-            p: 4, 
-            borderRadius: 2,
-            bgcolor: 'background.paper' 
-          }}
-        >
-          <Grid container spacing={3} alignItems="center">
-            <Grid item xs={12} md={6}>
-              <Box>
-                <Typography variant="h6" gutterBottom>
-                  1. Describe Your Material Requirements
-                </Typography>
-                <Typography variant="body1" paragraph>
-                  Use our chat interface to describe what you need in your material - 
-                  properties, cost constraints, elements to include or avoid.
-                </Typography>
-                
-                <Typography variant="h6" gutterBottom>
-                  2. Review and Refine
-                </Typography>
-                <Typography variant="body1" paragraph>
-                  Our AI interprets your requirements and proposes material designs. 
-                  Review and refine the properties interactively.
-                </Typography>
-                
-                <Typography variant="h6" gutterBottom>
-                  3. Generate MatterGen Code
-                </Typography>
-                <Typography variant="body1" paragraph>
-                  When you're happy with the design, generate ready-to-use MatterGen code 
-                  that you can run directly in Google Colab.
-                </Typography>
-                
-                <Typography variant="h6" gutterBottom>
-                  4. Run Simulations or Export Results
-                </Typography>
-                <Typography variant="body1">
-                  Open the generated code in Colab to run simulations, or export your 
-                  material designs for use in other applications.
-                </Typography>
-              </Box>
-            </Grid>
-            
-            <Grid item xs={12} md={6}>
-              <Box 
-                sx={{ 
+                  height: '100%', 
                   display: 'flex', 
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100%'
+                  flexDirection: 'column',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  '&:hover': {
+                    transform: 'translateY(-8px)',
+                    boxShadow: 6
+                  }
                 }}
               >
-                <img 
-                  src="https://raw.githubusercontent.com/microsoft/mattergen/main/docs/images/mattergen.png" 
-                  alt="MatterGen process visualization" 
-                  style={{ 
-                    maxWidth: '100%', 
-                    maxHeight: '400px',
-                    borderRadius: '8px',
-                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)'
-                  }} 
-                />
-              </Box>
+                <CardContent sx={{ flexGrow: 1, textAlign: 'center', pt: 4 }}>
+                  <Box sx={{ mb: 2 }}>
+                    {feature.icon}
+                  </Box>
+                  <Typography variant="h5" component="h3" gutterBottom>
+                    {feature.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {feature.description}
+                  </Typography>
+                </CardContent>
+              </Card>
             </Grid>
+          ))}
+        </Grid>
+      </Container>
+
+      {/* Materials Showcase */}
+      <Box sx={{ bgcolor: 'background.default', py: 8, mb: 6 }}>
+        <Container maxWidth="lg">
+          <Typography variant="h4" component="h2" align="center" gutterBottom>
+            Featured Materials
+          </Typography>
+          <Typography variant="body1" align="center" color="text.secondary" paragraph sx={{ mb: 6 }}>
+            Discover cutting-edge materials for your next project
+          </Typography>
+          <Grid container spacing={4}>
+            {materials.map((material, index) => (
+              <Grid item xs={12} md={4} key={index}>
+                <Card 
+                  sx={{ 
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    transition: 'transform 0.2s',
+                    '&:hover': {
+                      transform: 'scale(1.03)'
+                    }
+                  }}
+                >
+                  <CardMedia
+                    component="img"
+                    height="200"
+                    image={material.image}
+                    alt={material.title}
+                  />
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" component="h3" gutterBottom>
+                      {material.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" paragraph>
+                      {material.description}
+                    </Typography>
+                    <Link component={RouterLink} to={`/materials/${material.title.toLowerCase().replace(' ', '-')}`}>
+                      Explore more
+                    </Link>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
-        </Paper>
+        </Container>
       </Box>
 
       {/* Call to Action */}
-      <Box 
-        sx={{ 
-          textAlign: 'center', 
-          py: 6,
-          mb: 4,
-          bgcolor: 'primary.light',
-          borderRadius: 2,
-          color: 'white'
-        }}
-      >
-        <Typography variant="h4" gutterBottom>
-          Ready to design your next material?
-        </Typography>
-        
-        <Typography variant="subtitle1" sx={{ mb: 3 }}>
-          Start designing now and harness the power of MatterGen through our user-friendly interface.
-        </Typography>
-        
-        <Button 
-          variant="contained" 
-          size="large" 
-          color="secondary"
-          onClick={() => navigate('/design')}
-        >
-          Get Started
-        </Button>
+      <Box sx={{ bgcolor: 'primary.light', py: 6, mb: 6 }}>
+        <Container maxWidth="md" sx={{ textAlign: 'center' }}>
+          <Typography variant="h4" component="h2" gutterBottom>
+            Ready to Transform Your Materials Research?
+          </Typography>
+          <Typography variant="body1" paragraph sx={{ mb: 4 }}>
+            Join thousands of researchers, engineers, and educators using EasyMatter to advance materials science.
+          </Typography>
+          <Button
+            variant="contained"
+            size="large"
+            component={RouterLink}
+            to="/register"
+            sx={{ 
+              px: 4, 
+              py: 1.5,
+              bgcolor: 'primary.dark', 
+              '&:hover': {
+                bgcolor: 'primary.main',
+              }
+            }}
+          >
+            Get Started Today
+          </Button>
+        </Container>
       </Box>
-    </Container>
+
+      {/* Testimonials Section */}
+      <Container maxWidth="lg" sx={{ mb: 8 }}>
+        <Typography variant="h4" component="h2" align="center" gutterBottom>
+          What Our Users Say
+        </Typography>
+        <Divider sx={{ mb: 4 }} />
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={4}>
+            <Paper sx={{ p: 3, height: '100%' }}>
+              <Typography variant="body1" paragraph sx={{ fontStyle: 'italic' }}>
+                "EasyMatter has revolutionized how we approach materials selection in our lab. The comprehensive database and analysis tools have saved us countless hours of research time."
+              </Typography>
+              <Typography variant="subtitle1" color="primary" fontWeight="bold">
+                Dr. Sarah Chen
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Research Scientist, Materials Innovation Institute
+              </Typography>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Paper sx={{ p: 3, height: '100%' }}>
+              <Typography variant="body1" paragraph sx={{ fontStyle: 'italic' }}>
+                "As an educator, I've found EasyMatter to be an invaluable resource for teaching materials science concepts. My students love the interactive tools and visualization capabilities."
+              </Typography>
+              <Typography variant="subtitle1" color="primary" fontWeight="bold">
+                Prof. James Rodriguez
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Professor of Engineering, Tech University
+              </Typography>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Paper sx={{ p: 3, height: '100%' }}>
+              <Typography variant="body1" paragraph sx={{ fontStyle: 'italic' }}>
+                "The data analysis tools in EasyMatter have helped us identify optimal materials for our aerospace applications. It's become an essential part of our R&D workflow."
+              </Typography>
+              <Typography variant="subtitle1" color="primary" fontWeight="bold">
+                Maria Johnson
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Senior Engineer, AeroTech Innovations
+              </Typography>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
-};
+}
 
 export default HomePage;
