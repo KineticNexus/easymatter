@@ -1,351 +1,180 @@
 import React, { useState } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import {
   AppBar,
   Box,
-  Button,
-  Container,
-  Drawer,
+  Toolbar,
   IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
   Link,
+  Drawer,
   List,
   ListItem,
   ListItemText,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-  useMediaQuery,
-  useTheme
+  ListItemButton,
+  useMediaQuery
 } from '@mui/material';
-import {
-  Menu as MenuIcon,
-  KeyboardArrowDown as ArrowDownIcon,
-  Person as PersonIcon
-} from '@mui/icons-material';
+import { useTheme } from '@mui/material/styles';
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SearchIcon from '@mui/icons-material/Search';
 
-const Navbar = () => {
+const pages = [
+  { name: 'Materials', path: '/materials' },
+  { name: 'Design Tools', path: '/design' },
+  { name: 'Applications', path: '/applications' },
+  { name: 'About', path: '/about' }
+];
+
+const settings = [
+  { name: 'Profile', path: '/profile' },
+  { name: 'Account', path: '/account' },
+  { name: 'Dashboard', path: '/dashboard' },
+  { name: 'Logout', path: '/logout' }
+];
+
+function Navbar() {
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const location = useLocation();
-  
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [materialsMenuAnchor, setMaterialsMenuAnchor] = useState(null);
-  const [accountMenuAnchor, setAccountMenuAnchor] = useState(null);
-  
-  const handleMobileToggle = () => {
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  
-  const handleMaterialsMenuOpen = (event) => {
-    setMaterialsMenuAnchor(event.currentTarget);
-  };
-  
-  const handleMaterialsMenuClose = () => {
-    setMaterialsMenuAnchor(null);
-  };
-  
-  const handleAccountMenuOpen = (event) => {
-    setAccountMenuAnchor(event.currentTarget);
-  };
-  
-  const handleAccountMenuClose = () => {
-    setAccountMenuAnchor(null);
-  };
-  
-  const isActive = (path) => {
-    return location.pathname === path;
-  };
-  
-  const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'Materials', path: '/materials', hasMenu: true },
-    { name: 'Design Tool', path: '/design' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' }
-  ];
-  
-  const materialsMenuItems = [
-    { name: 'Browse All', path: '/materials' },
-    { name: 'By Category', path: '/materials/category' },
-    { name: 'New Materials', path: '/materials/new' },
-    { name: 'Featured', path: '/materials/featured' }
-  ];
-  
-  const accountMenuItems = [
-    { name: 'Profile', path: '/profile' },
-    { name: 'Settings', path: '/settings' },
-    { name: 'My Materials', path: '/my-materials' },
-    { name: 'Logout', path: '/logout' }
-  ];
-  
-  const logo = (
-    <Typography
-      variant="h6"
-      component={RouterLink}
-      to="/"
-      sx={{
-        fontWeight: 700,
-        color: 'white',
-        textDecoration: 'none',
-        display: 'flex',
-        alignItems: 'center'
-      }}
-    >
-      EasyMatter
-    </Typography>
-  );
 
-  const desktopNav = (
-    <>
-      <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 4 }}>
-        {navItems.map((item) => (
-          item.hasMenu ? (
-            <Box key={item.name}>
-              <Button
-                onClick={handleMaterialsMenuOpen}
-                endIcon={<ArrowDownIcon />}
-                sx={{
-                  color: 'white',
-                  mx: 1,
-                  textTransform: 'none',
-                  borderBottom: isActive(item.path) ? '2px solid white' : 'none',
-                  borderRadius: 0,
-                  '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)'
-                  }
-                }}
-              >
-                {item.name}
-              </Button>
-              <Menu
-                anchorEl={materialsMenuAnchor}
-                open={Boolean(materialsMenuAnchor)}
-                onClose={handleMaterialsMenuClose}
-                MenuListProps={{
-                  'aria-labelledby': 'materials-button',
-                }}
-                PaperProps={{
-                  elevation: 3,
-                  sx: {
-                    mt: 1.5,
-                    minWidth: 180
-                  }
-                }}
-              >
-                {materialsMenuItems.map((menuItem) => (
-                  <MenuItem
-                    key={menuItem.name}
-                    component={RouterLink}
-                    to={menuItem.path}
-                    onClick={handleMaterialsMenuClose}
-                    sx={{
-                      '&:hover': {
-                        backgroundColor: 'rgba(25, 118, 210, 0.08)'
-                      }
-                    }}
-                  >
-                    {menuItem.name}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-          ) : (
-            <Button
-              key={item.name}
-              component={RouterLink}
-              to={item.path}
-              sx={{
-                color: 'white',
-                mx: 1,
-                textTransform: 'none',
-                borderBottom: isActive(item.path) ? '2px solid white' : 'none',
-                borderRadius: 0,
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)'
-                }
-              }}
-            >
-              {item.name}
-            </Button>
-          )
-        ))}
-      </Box>
-      <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-        <IconButton
-          onClick={handleAccountMenuOpen}
-          sx={{
-            color: 'white',
-            '&:hover': {
-              backgroundColor: 'rgba(255, 255, 255, 0.1)'
-            }
-          }}
-        >
-          <PersonIcon />
-        </IconButton>
-        <Menu
-          anchorEl={accountMenuAnchor}
-          open={Boolean(accountMenuAnchor)}
-          onClose={handleAccountMenuClose}
-          MenuListProps={{
-            'aria-labelledby': 'account-button',
-          }}
-          PaperProps={{
-            elevation: 3,
-            sx: {
-              mt: 1.5,
-              minWidth: 180
-            }
-          }}
-        >
-          {accountMenuItems.map((menuItem) => (
-            <MenuItem
-              key={menuItem.name}
-              component={RouterLink}
-              to={menuItem.path}
-              onClick={handleAccountMenuClose}
-              sx={{
-                '&:hover': {
-                  backgroundColor: 'rgba(25, 118, 210, 0.08)'
-                }
-              }}
-            >
-              {menuItem.name}
-            </MenuItem>
-          ))}
-        </Menu>
-        <Button
-          variant="outlined"
-          color="inherit"
-          sx={{
-            ml: 2,
-            borderColor: 'white',
-            '&:hover': {
-              borderColor: 'white',
-              backgroundColor: 'rgba(255, 255, 255, 0.1)'
-            }
-          }}
-        >
-          Sign In
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          sx={{
-            ml: 2
-          }}
-        >
-          Sign Up
-        </Button>
-      </Box>
-    </>
-  );
-
-  const mobileDrawer = (
-    <Drawer
-      variant="temporary"
-      open={mobileOpen}
-      onClose={handleMobileToggle}
-      ModalProps={{
-        keepMounted: true,
-      }}
-      sx={{
-        display: { xs: 'block', md: 'none' },
-        '& .MuiDrawer-paper': { 
-          width: 240,
-          boxSizing: 'border-box' 
-        },
-      }}
-    >
-      <Box sx={{ p: 2 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700 }}>
-          EasyMatter
-        </Typography>
-      </Box>
+  const drawer = (
+    <Box sx={{ width: 250 }} role="presentation" onClick={handleDrawerToggle}>
       <List>
-        {navItems.map((item) => (
-          <React.Fragment key={item.name}>
-            <ListItem 
-              button 
-              component={RouterLink} 
-              to={item.path}
-              onClick={handleMobileToggle}
-              selected={isActive(item.path)}
-            >
-              <ListItemText primary={item.name} />
-            </ListItem>
-            
-            {item.hasMenu && materialsMenuItems.map((subItem) => (
-              <ListItem 
-                button 
-                key={subItem.name}
-                component={RouterLink} 
-                to={subItem.path}
-                onClick={handleMobileToggle}
-                selected={isActive(subItem.path)}
-                sx={{ pl: 4 }}
-              >
-                <ListItemText primary={subItem.name} />
-              </ListItem>
-            ))}
-          </React.Fragment>
+        {pages.map((page) => (
+          <ListItem key={page.name} disablePadding>
+            <ListItemButton component={RouterLink} to={page.path}>
+              <ListItemText primary={page.name} />
+            </ListItemButton>
+          </ListItem>
         ))}
-        
-        <Box sx={{ mt: 2, mx: 2 }}>
-          <Button
-            fullWidth
-            variant="outlined"
-            color="primary"
-            component={RouterLink}
-            to="/login"
-            onClick={handleMobileToggle}
-            sx={{ mb: 1 }}
-          >
-            Sign In
-          </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            component={RouterLink}
-            to="/register"
-            onClick={handleMobileToggle}
-          >
-            Sign Up
-          </Button>
-        </Box>
       </List>
-    </Drawer>
+    </Box>
   );
 
   return (
-    <AppBar position="sticky" sx={{ bgcolor: theme.palette.primary.main }}>
+    <AppBar position="sticky" color="default" elevation={1} sx={{ backgroundColor: 'white' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {isMobile ? (
-            <>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleMobileToggle}
-                sx={{ mr: 2 }}
+          {/* Logo - both desktop and mobile */}
+          <Typography
+            variant="h6"
+            noWrap
+            component={RouterLink}
+            to="/"
+            sx={{
+              mr: 2,
+              display: 'flex',
+              fontWeight: 700,
+              color: 'primary.main',
+              textDecoration: 'none',
+            }}
+          >
+            EasyMatter
+          </Typography>
+
+          {/* Mobile menu icon */}
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
+            <IconButton
+              size="large"
+              aria-label="menu"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleDrawerToggle}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Drawer
+              anchor="right"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+            >
+              {drawer}
+            </Drawer>
+          </Box>
+
+          {/* Desktop navigation links */}
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 4 }}>
+            {pages.map((page) => (
+              <Button
+                key={page.name}
+                component={RouterLink}
+                to={page.path}
+                sx={{ 
+                  mx: 1, 
+                  color: 'text.primary',
+                  '&:hover': {
+                    color: 'primary.main',
+                  } 
+                }}
               >
-                <MenuIcon />
+                {page.name}
+              </Button>
+            ))}
+          </Box>
+
+          {/* Search icon */}
+          <IconButton 
+            color="inherit" 
+            sx={{ ml: 1 }}
+          >
+            <SearchIcon />
+          </IconButton>
+
+          {/* User menu */}
+          <Box sx={{ flexGrow: 0, ml: 1 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <AccountCircleIcon sx={{ fontSize: 32, color: 'text.secondary' }} />
               </IconButton>
-              <Box sx={{ flexGrow: 1 }}>{logo}</Box>
-            </>
-          ) : (
-            <>
-              {logo}
-              {desktopNav}
-            </>
-          )}
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting.name} onClick={handleCloseUserMenu} component={RouterLink} to={setting.path}>
+                  <Typography textAlign="center">{setting.name}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
         </Toolbar>
       </Container>
-      {mobileDrawer}
     </AppBar>
   );
-};
+}
 
 export default Navbar;
