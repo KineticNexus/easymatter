@@ -1,50 +1,96 @@
-import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { Box } from '@mui/material';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import LandingPage from './pages/LandingPage';
+import MaterialsListPage from './pages/MaterialsListPage';
+import MaterialDesignPage from './pages/MaterialDesignPage';
+import MaterialDetailPage from './pages/MaterialDetailPage';
+import ProfilePage from './pages/ProfilePage';
+import NotFoundPage from './pages/NotFoundPage';
 
-// Components
-import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
-
-// Pages
-import HomePage from './pages/HomePage';
-import DesignPage from './pages/DesignPage';
-import MaterialsPage from './pages/MaterialsPage';
-import TemplatesPage from './pages/TemplatesPage';
-import ColabCodePage from './pages/ColabCodePage';
+// Custom theme 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+      light: '#42a5f5',
+      dark: '#1565c0',
+      contrastText: '#ffffff',
+    },
+    secondary: {
+      main: '#ff9800',
+      light: '#ffb74d',
+      dark: '#f57c00',
+      contrastText: '#000000',
+    },
+    background: {
+      default: '#f5f5f5',
+      paper: '#ffffff',
+    },
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    h1: {
+      fontWeight: 700,
+    },
+    h2: {
+      fontWeight: 700,
+    },
+    h3: {
+      fontWeight: 600,
+    },
+    h4: {
+      fontWeight: 600,
+    },
+    h5: {
+      fontWeight: 500,
+    },
+    h6: {
+      fontWeight: 500,
+    },
+  },
+  shape: {
+    borderRadius: 8,
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          borderRadius: 8,
+          fontWeight: 600,
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: '0 4px 12px 0 rgba(0,0,0,0.05)',
+        },
+      },
+    },
+  },
+});
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
   return (
-    <Box 
-      sx={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        minHeight: '100vh',
-        bgcolor: darkMode ? 'grey.900' : 'background.default',
-        color: darkMode ? 'common.white' : 'common.black'
-      }}
-    >
-      <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      
-      <Box sx={{ flexGrow: 1, py: 3 }}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/design" element={<DesignPage />} />
-          <Route path="/design/:templateId" element={<DesignPage />} />
-          <Route path="/materials" element={<MaterialsPage />} />
-          <Route path="/templates" element={<TemplatesPage />} />
-          <Route path="/colab-code" element={<ColabCodePage />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/materials" element={<MaterialsListPage />} />
+          <Route path="/materials/:id" element={<MaterialDetailPage />} />
+          <Route path="/design" element={<MaterialDesignPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
-      </Box>
-      
-      <Footer />
-    </Box>
+        <Footer />
+      </Router>
+    </ThemeProvider>
   );
 }
 
