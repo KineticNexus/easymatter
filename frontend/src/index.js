@@ -1,22 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import theme from './theme';
 
+// Inject Roboto font (for Material UI)
+const robotoLink = document.createElement('link');
+robotoLink.rel = 'stylesheet';
+robotoLink.href = 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap';
+document.head.appendChild(robotoLink);
+
+// Create root and render app
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
+    <App />
   </React.StrictMode>
 );
 
