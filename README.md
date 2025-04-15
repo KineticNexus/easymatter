@@ -1,29 +1,70 @@
 # EasyMatter
 
-A web application that makes MatterGen accessible to non-scientists for designing materials with a chat-based UI powered by OpenAI's API.
-
-## Overview
-
-EasyMatter enables non-scientists to design new materials, catalysts, or modified materials using MatterGen, with a conversational UI that interprets plain-language inputs, restricts inputs to a user-uploaded cost/availability dataset, and outputs ready-to-run Colab code.
+EasyMatter is a comprehensive materials science platform designed to help researchers, engineers, and students explore, analyze, and innovate with materials science data.
 
 ## Features
 
-- Intuitive, conversational UI for material design
-- OpenAI-powered natural language interpretation
-- Templates for common material design goals
-- Cost and availability constraints via user-defined datasets
-- Google Colab code generation for running MatterGen
+- **Materials Database**: Browse through our extensive collection of materials with detailed properties and applications
+- **Material Comparison**: Compare different materials side-by-side to find the best fit for your needs
+- **Learning Resources**: Access educational content to enhance your materials science knowledge
+- **Research Tools**: Utilize powerful tools designed to streamline your materials research workflow
 
-## Project Structure
+## Tech Stack
 
-- `/frontend`: React.js frontend application
-- `/backend`: FastAPI backend application
-- `/docs`: Documentation and diagrams
+- **Frontend**: React, Material-UI
+- **Backend**: (Coming soon) Node.js, Express
+- **Database**: (Coming soon) MongoDB
 
 ## Getting Started
 
-See the installation guide in the docs directory for setup instructions.
+### Prerequisites
+
+- Node.js (v14+)
+- npm (v6+)
+
+### Installation
+
+1. Clone the repository
+   ```
+   git clone https://github.com/KineticNexus/easymatter.git
+   cd easymatter
+   ```
+
+2. Install frontend dependencies
+   ```
+   cd frontend
+   npm install
+   ```
+
+3. Start the development server
+   ```
+   npm start
+   ```
+
+4. Open your browser and navigate to `http://localhost:3000`
+
+## Project Structure
+
+```
+frontend/
+  ├── public/          # Static files
+  ├── src/             # Source files
+  │   ├── components/  # Reusable UI components
+  │   ├── pages/       # Page components
+  │   ├── App.js       # Main App component
+  │   └── index.js     # Entry point
+  ├── package.json     # Dependencies and scripts
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- All the researchers and engineers working to advance materials science
+- The open-source community for providing amazing tools
